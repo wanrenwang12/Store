@@ -4,7 +4,9 @@ import com.cy.store.entity.User;
 import com.cy.store.mapper.UserMapper;
 import com.cy.store.service.IUserService;
 import com.cy.store.service.ex.InsertException;
+import com.cy.store.service.ex.PasswordNotMatchException;
 import com.cy.store.service.ex.UsernameDuplicatedException;
+import com.cy.store.service.ex.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -52,6 +54,34 @@ public class UserServiceImpl implements IUserService {
         if (rows != 1){
             throw new InsertException("Unknown error when we are registering");
         }
+    }
+
+
+    @Override
+    public User login(String username, String password){
+        User result = userMapper.findByUserName(username);
+        if (result == null){
+            throw new UserNotFoundException("User not exist");
+        }
+
+        String salt = result.getSalt();
+        String oldPassword = result.getPassword();
+        String newMd5Password = getMD5Password(password, salt);
+        if (!newMd5Password.equals(oldPassword)){
+            throw new PasswordNotMatchException("Password error");
+        }
+
+        if (result.getIsDelete() == 1){
+            throw new UserNotFoundException("User has been deleted");
+        }
+
+        // simplify information
+        User user = new User();
+        user.setUid(result.getUid());
+        user.setUsername(result.getUsername());
+        user.setAvatar(result.getAvatar());
+        return user;
+
     }
 
     /**

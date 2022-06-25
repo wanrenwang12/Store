@@ -10,5 +10,12 @@ public interface IUserService {
      */
     void reg(User user);
 
+    /**
+     * login module
+     * @param username
+     * @param password
+     * @return user
+     */
 
+    User login(String username, String password);
 }

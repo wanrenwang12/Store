@@ -1,8 +1,6 @@
 package com.cy.store.controller;
 
-import com.cy.store.service.ex.InsertException;
-import com.cy.store.service.ex.ServiceException;
-import com.cy.store.service.ex.UsernameDuplicatedException;
+import com.cy.store.service.ex.*;
 import com.cy.store.util.JsonResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -19,7 +17,13 @@ public class BaseController {
         if (e instanceof UsernameDuplicatedException) {
             result.setState(4000);
             result.setMessage("The name has been registered");
-        }else if (e instanceof InsertException){
+        }else if (e instanceof UserNotFoundException){
+            result.setState(5001);
+            result.setMessage("User not exist");
+        }else if (e instanceof PasswordNotMatchException){
+            result.setState(5002);
+            result.setMessage("Password is not correct");
+        } else if (e instanceof InsertException){
             result.setState(5000);
             result.setMessage("fail to register");
         }
