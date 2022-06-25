@@ -4,6 +4,8 @@ import com.cy.store.service.ex.*;
 import com.cy.store.util.JsonResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * for errors come in controller
  */
@@ -28,5 +30,23 @@ public class BaseController {
             result.setMessage("fail to register");
         }
         return result;
+    }
+
+    /**
+     * get uid from session
+     * @param session
+     * @return uid
+     */
+    protected final Integer getuidFromSession(HttpSession session){
+        return Integer.valueOf(session.getAttribute("uid").toString());
+    }
+
+    /**
+     * get username from session
+     * @param session
+     * @return String
+     */
+    protected final String getUsernameFromSession(HttpSession session){
+        return session.getAttribute("username").toString();
     }
 }
