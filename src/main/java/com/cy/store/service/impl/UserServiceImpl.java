@@ -3,10 +3,7 @@ package com.cy.store.service.impl;
 import com.cy.store.entity.User;
 import com.cy.store.mapper.UserMapper;
 import com.cy.store.service.IUserService;
-import com.cy.store.service.ex.InsertException;
-import com.cy.store.service.ex.PasswordNotMatchException;
-import com.cy.store.service.ex.UsernameDuplicatedException;
-import com.cy.store.service.ex.UserNotFoundException;
+import com.cy.store.service.ex.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -82,6 +79,30 @@ public class UserServiceImpl implements IUserService {
         user.setAvatar(result.getAvatar());
         return user;
 
+    }
+
+    @Override
+    public void changePassword(Integer uid,
+                        String username,
+                        String oldPassword,
+                        String newPassword){
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete() == 1){
+            throw new UserNotFoundException("User not found");
+        }
+
+        // check whether oldpassword match password in SQL
+        String oldMD5Password = getMD5Password(oldPassword, result.getSalt());
+        if(!result.getPassword().equals(oldMD5Password)){
+            throw new PasswordNotMatchException("Password not correct");
+        }
+
+        //update password
+        String newMD5Password = getMD5Password(newPassword, result.getSalt());
+        Integer rows = userMapper.updatePasswordByUid(uid, newMD5Password, username, new Date());
+        if (rows != 1){
+            throw new UpdateException("unknown error when updating the Password");
+        }
     }
 
     /**

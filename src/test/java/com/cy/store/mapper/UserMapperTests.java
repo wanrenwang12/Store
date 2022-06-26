@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 
 @SpringBootTest
@@ -32,4 +33,16 @@ public class UserMapperTests {
         User user = userMapper.findByUserName("tim");
         System.out.println(user);
     }
+
+    @Test
+    public void updatePasswordByUid(){
+        userMapper.updatePasswordByUid(6,"321","admin", new Date());
+    }
+
+    @Test
+    public void findByUid(){
+        System.out.println(userMapper.findByUid(6));
+    }
+
+
 }

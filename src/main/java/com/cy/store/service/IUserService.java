@@ -16,6 +16,17 @@ public interface IUserService {
      * @param password
      * @return user
      */
-
     User login(String username, String password);
+
+    /**
+     *
+     * @param uid
+     * @param username
+     * @param oldPassword
+     * @param newPassword
+     */
+    void changePassword(Integer uid,
+                        String username,
+                        String oldPassword,
+                        String newPassword);
 }
