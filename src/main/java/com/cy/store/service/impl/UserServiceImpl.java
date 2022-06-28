@@ -105,6 +105,35 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public User getByUid(Integer uid) {
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete() == 1){
+            throw new UserNotFoundException("User not exist");
+        }
+        User user = new User();
+        user.setUsername(result.getUsername());
+        user.setPhone(result.getPhone());
+        user.setEmail(result.getEmail());
+        user.setGender(result.getGender());
+        return user;
+    }
+
+    @Override
+    public void changeInfo(Integer uid, String username, User user) {
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete() == 1){
+            throw new UserNotFoundException("User not exist");
+        }
+        user.setUid(uid);
+        user.setModifiedUser(username);
+        user.setModifiedTime(new Date());
+        Integer rows = userMapper.updateInfoByUid(user);
+        if (rows != 1){
+            throw new UpdateException("fail to update");
+        }
+    }
+
     /**
      * Util for get encryption password
      * @param password

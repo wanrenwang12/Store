@@ -39,4 +39,11 @@ public interface UserMapper {
      * @return user or null
      */
     User findByUid(Integer uid);
+
+    /**
+     * udpdate user info
+     * @param user
+     * @return rows be influenced
+     */
+    Integer updateInfoByUid(User user);
 }

@@ -42,4 +42,12 @@ public class JsonResult<E> implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public E getData() {
+        return data;
+    }
+
+    public void setData(E data) {
+        this.data = data;
+    }
 }
