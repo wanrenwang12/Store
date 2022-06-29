@@ -2,6 +2,7 @@ package com.cy.store.mapper;
 
 import com.cy.store.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 
@@ -46,4 +47,17 @@ public interface UserMapper {
      * @return rows be influenced
      */
     Integer updateInfoByUid(User user);
+
+    /**
+     * update profile
+     * @param uid
+     * @param avatar
+     * @param modifiedUser
+     * @param modifiedTime
+     * @return
+     */
+    Integer updateAvatarByUid(Integer uid,
+                              String avatar,
+                              String modifiedUser,
+                              Date modifiedTime);
 }

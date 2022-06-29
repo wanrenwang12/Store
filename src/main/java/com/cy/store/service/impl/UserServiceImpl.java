@@ -134,6 +134,18 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public void changeAvatar(Integer uid, String avatar, String username) {
+        User result = userMapper.findByUid(uid);
+        if (result == null || result.getIsDelete() == 1){
+            throw new UserNotFoundException("User not exist");
+        }
+        Integer rows = userMapper.updateAvatarByUid(uid, avatar, username, new Date());
+        if (rows != 1){
+            throw new UpdateException("fail to update the profile");
+        }
+    }
+
     /**
      * Util for get encryption password
      * @param password

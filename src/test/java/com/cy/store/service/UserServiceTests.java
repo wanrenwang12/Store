@@ -57,4 +57,9 @@ public class UserServiceTests {
         userService.changeInfo(8,"admin", user);
     }
 
+    @Test
+    public void changeAvatar(){
+        userService.changeAvatar(8, "D:/", "Tom");
+    }
+
 }

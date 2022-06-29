@@ -54,5 +54,9 @@ public class UserMapperTests {
         userMapper.updateInfoByUid(user);
     }
 
+    @Test
+    public void updateAvatarByUid(){
+        userMapper.updateAvatarByUid(8, "C:/", "admin", new Date());
+    }
 
 }

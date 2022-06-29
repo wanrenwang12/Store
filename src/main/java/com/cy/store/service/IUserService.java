@@ -2,6 +2,8 @@ package com.cy.store.service;
 
 import com.cy.store.entity.User;
 
+import java.util.Date;
+
 public interface IUserService {
 
     /**
@@ -44,4 +46,14 @@ public interface IUserService {
      * @param user
      */
     void changeInfo(Integer uid, String username, User user);
+
+    /**
+     * change profile
+     * @param uid
+     * @param avatar
+     * @param username
+     */
+    void changeAvatar(Integer uid,
+                      String avatar,
+                      String username);
 }
