@@ -21,11 +21,14 @@ public class BaseController {
             result.setState(4000);
             result.setMessage("The name has been registered");
         }else if (e instanceof UserNotFoundException){
-            result.setState(5001);
+            result.setState(4001);
             result.setMessage("User not exist");
         }else if (e instanceof PasswordNotMatchException){
-            result.setState(5002);
+            result.setState(4002);
             result.setMessage("Password is not correct");
+        } else if (e instanceof AddressCountLimitException){
+            result.setState(4003);
+            result.setMessage("Address Count Limit");
         } else if (e instanceof InsertException){
             result.setState(5000);
             result.setMessage("fail to register");
