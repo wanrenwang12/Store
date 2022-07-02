@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -54,6 +55,24 @@ public class AddressMapperTests {
     public void findByUid(){
         List<Address> list = addressMapper.findByUid(8);
         System.out.println(list);
+    }
+
+    @Test
+    public void FindByAid(){
+        Address address = addressMapper.findByAid(7);
+        System.out.println(address);
+    }
+
+    @Test
+    public void UpdateNonDefault(){
+        Integer rows = addressMapper.updateNonDefault(8);
+        System.out.println(rows);
+    }
+
+    @Test
+    public void UpdateDefaultByAid(){
+        Integer rows = addressMapper.updateDefaultByAid(7, "admin", new Date());
+        System.out.println(rows);
     }
 
 }

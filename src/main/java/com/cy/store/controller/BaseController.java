@@ -24,13 +24,19 @@ public class BaseController {
         }else if (e instanceof UserNotFoundException){
             result.setState(4001);
             result.setMessage("User not exist");
-        }else if (e instanceof PasswordNotMatchException){
+        }else if (e instanceof PasswordNotMatchException) {
             result.setState(4002);
             result.setMessage("Password is not correct");
-        } else if (e instanceof AddressCountLimitException){
+        }else if (e instanceof AddressCountLimitException){
             result.setState(4003);
-            result.setMessage("Address Count Limit");
-        } else if (e instanceof InsertException){
+            result.setMessage("Address number exceed limitation");
+        } else if (e instanceof AddressNotFoundException){
+            result.setState(4004);
+            result.setMessage("Address not exist");
+        }else if (e instanceof AccessDeniedException){
+            result.setState(4005);
+            result.setMessage("Access Denied");
+        }else if (e instanceof InsertException){
             result.setState(5000);
             result.setMessage("fail to register");
         }else if (e instanceof UpdateException){

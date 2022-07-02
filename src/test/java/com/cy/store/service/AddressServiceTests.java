@@ -45,4 +45,9 @@ public class AddressServiceTests {
             System.err.println(d);
         }
     }
+
+    @Test
+    public void setDefault(){
+        addressService.setDefault(8, 8, "admin");
+    }
 }
