@@ -2,6 +2,8 @@ package com.cy.store.mapper;
 
 import com.cy.store.entity.Address;
 
+import java.util.List;
+
 public interface AddressMapper {
 
     /**
@@ -17,5 +19,12 @@ public interface AddressMapper {
      * @return num
      */
     Integer countByUid(Integer uid);
+
+    /**
+     * select address
+     * @param uid
+     * @return all address
+     */
+    List<Address> findByUid(Integer uid);
 
 }

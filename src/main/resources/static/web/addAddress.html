@@ -286,6 +286,124 @@
 		</footer>
 		<!--页脚结束-->
 		<script type="text/javascript">
+
+			let  defaultOption = "<option value = '0'>---- 请选择 ----</option>";
+			$(document).ready(function(){
+				showProvinceList();
+				showCityList();
+				$("#area-list").append(defaultOption);
+
+			})
+
+			$("#province-list").change(function(){
+				let parent = $("#province-list").val();
+				$("#city-list").empty();
+				$("#area-list").empty();
+				$("#city-list").append(defaultOption);
+				$("#area-list").append(defaultOption);
+
+				if (parent == 0){
+					return
+				}
+
+				$.ajax({
+					url:"/districts",
+					type:"GET",
+					data:"parent="+parent,
+					dataType:"JSON",
+					success: function(json){
+						if(json.state == 200){
+							let list = json.data;
+							for (let i = 0; i<list.length; i++){
+								let opt = "<option value = '"+list[i].code+"'>"+list[i].name+"</option>";
+								$("#city-list").append(opt);
+							}
+						} else{
+							alert("fail to load City List");
+						}
+					},
+					error: function(xhr){
+						alert("error" + xhr.status);
+					}
+				});
+			})
+
+			$("#city-list").change(function(){
+				let parent = $("#city-list").val();
+				$("#area-list").empty();
+				$("#area-list").append(defaultOption);
+
+				if (parent == 0){
+					return
+				}
+
+				$.ajax({
+					url:"/districts",
+					type:"GET",
+					data:"parent="+parent,
+					dataType:"JSON",
+					success: function(json){
+						if(json.state == 200){
+							let list = json.data;
+							for (let i = 0; i<list.length; i++){
+								let opt = "<option value = '"+list[i].code+"'>"+list[i].name+"</option>";
+								$("#area-list").append(opt);
+							}
+						} else{
+							alert("fail to load Area List");
+						}
+					},
+					error: function(xhr){
+						alert("error" + xhr.status);
+					}
+				});
+			})
+
+			function showProvinceList(){
+				$.ajax({
+					url:"/districts",
+					type:"POST",
+					data:"parent=86",
+					dataType:"JSON",
+					success: function(json){
+						if(json.state == 200){
+							let list = json.data;
+							for (let i = 0; i<list.length; i++){
+								let opt = "<option value = '"+list[i].code+"'>"+list[i].name+"</option>";
+								$("#province-list").append(opt);
+							}
+						} else{
+							alert("fail to load Province List");
+						}
+					},
+					error: function(xhr){
+						alert("error" + xhr.status);
+					}
+				});
+			}
+
+			function showCityList(){
+				$.ajax({
+					url:"/districts",
+					type:"POST",
+					data:"parent=110000",
+					dataType:"JSON",
+					success: function(json){
+						if(json.state == 200){
+							let list = json.data;
+							for (let i = 0; i<list.length; i++){
+								let opt = "<option value = '"+list[i].code+"'>"+list[i].name+"</option>";
+								$("#city-list").append(opt);
+							}
+						} else{
+							alert("fail to load city List");
+						}
+					},
+					error: function(xhr){
+						alert("error" + xhr.status);
+					}
+				});
+			}
 			//1.监听注册按钮是否被点击
 			$("#btn-add-new-address").click(function(){
 				//2.发送ajax异步请求

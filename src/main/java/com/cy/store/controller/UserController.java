@@ -1,8 +1,7 @@
 package com.cy.store.controller;
 
-import com.cy.store.controller.ex.FileEmptyException;
 import com.cy.store.controller.ex.FileSizeException;
-import com.cy.store.controller.ex.FileStateException;
+import com.cy.store.controller.ex.FileEmptyException;
 import com.cy.store.controller.ex.FileTypeException;
 import com.cy.store.entity.User;
 import com.cy.store.service.IUserService;
@@ -18,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 

@@ -12,4 +12,11 @@ public interface DistrictMapper {
      * @return all area belong to the parent
      */
     List<District> findByParent(String parent);
+
+    /**
+     * find name by code
+     * @param coed
+     * @return Name
+     */
+    String findNameByCode(String coed);
 }

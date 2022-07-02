@@ -44,5 +44,16 @@ public class AddressMapperTests {
         }
     }
 
+    @Test
+    public void findByCode(){
+        String name = districtMapper.findNameByCode("610000");
+        System.out.println(name);
+    }
+
+    @Test
+    public void findByUid(){
+        List<Address> list = addressMapper.findByUid(8);
+        System.out.println(list);
+    }
 
 }

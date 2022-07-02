@@ -4,12 +4,12 @@ package com.cy.store.controller;
 import com.cy.store.entity.Address;
 import com.cy.store.service.IAddressService;
 import com.cy.store.util.JsonResult;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RequestMapping("/address")
 @RestController
@@ -24,6 +24,13 @@ public class AddressController extends BaseController {
         String username = getUsernameFromSession(session);
         addressService.addNewAddress(uid, username, address);
         return new JsonResult<>(OK);
+    }
+
+    @RequestMapping({"", "/"})
+    public JsonResult<List<Address>> getByUid(HttpSession session){
+        Integer uid = getuidFromSession(session);
+        List<Address> data = addressService.getByUid(uid);
+        return new JsonResult<>(OK, data);
     }
 
 }

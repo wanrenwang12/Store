@@ -37,4 +37,12 @@ public class AddressServiceTests {
             System.err.println(d);
         }
     }
+
+    @Test
+    public void getByUid(){
+        List<Address> list = addressService.getByUid(8);
+        for (Address d: list){
+            System.err.println(d);
+        }
+    }
 }
