@@ -49,4 +49,17 @@ public interface AddressMapper {
      */
     Integer updateDefaultByAid(Integer aid, String modifiedUser, Date modifiedTime);
 
+    /**
+     * delete by aid
+     * @param aid
+     * @return rows been influenced
+     */
+    Integer deleteByAid(Integer aid);
+
+    /**
+     * select last address been modified
+     * @param uid
+     * @return address
+     */
+    Address findLastModified(Integer uid);
 }

@@ -11,4 +11,6 @@ public interface IAddressService {
     List<Address> getByUid(Integer uid);
 
     void setDefault(Integer aid, Integer uid, String username);
+
+    void deleteAddress(Integer aid, Integer uid, String username);
 }

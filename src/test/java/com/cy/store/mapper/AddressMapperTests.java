@@ -75,4 +75,14 @@ public class AddressMapperTests {
         System.out.println(rows);
     }
 
+    @Test
+    public void deleteAddress(){
+        addressMapper.deleteByAid(10);
+    }
+
+    @Test
+    public void findLastAddress(){
+        Address data = addressMapper.findLastModified(8);
+        System.out.println(data);
+    }
 }

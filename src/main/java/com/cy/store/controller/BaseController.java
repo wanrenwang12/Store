@@ -39,6 +39,9 @@ public class BaseController {
         }else if (e instanceof InsertException){
             result.setState(5000);
             result.setMessage("fail to register");
+        }else if (e instanceof DeleteException){
+            result.setState(5002);
+            result.setMessage("fail to delete");
         }else if (e instanceof UpdateException){
             result.setState(5003);
             result.setMessage("Fail to update");
