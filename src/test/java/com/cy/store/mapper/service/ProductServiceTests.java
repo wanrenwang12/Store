@@ -1,6 +1,7 @@
-package com.cy.store.service;
+package com.cy.store.mapper.service;
 
 import com.cy.store.entity.Product;
+import com.cy.store.service.IProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

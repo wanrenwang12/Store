@@ -1,6 +1,7 @@
-package com.cy.store.service;
+package com.cy.store.mapper.service;
 
 import com.cy.store.entity.User;
+import com.cy.store.service.IUserService;
 import com.cy.store.service.ex.ServiceException;
 import org.junit.Test;
 import org.junit.runner.RunWith;

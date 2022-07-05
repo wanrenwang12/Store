@@ -326,7 +326,7 @@
 
 			$("#btn-add-to-cart").click(function() {
 				$.ajax({
-					url: "/carts/add_to_cart",
+					url: "/cart/add_to_cart",
 					type: "POST",
 					data: {
 						"pid": id,
@@ -335,9 +335,9 @@
 					dataType: "JSON",
 					success: function(json) {
 						if (json.state == 200) {
-							alert("增加成功！");
+							alert("加入购物车成功！");
 						} else {
-							alert("增加失败！" + json.message);
+							alert("加入失败！" + json.message);
 						}
 					},
 					error: function(xhr) {
