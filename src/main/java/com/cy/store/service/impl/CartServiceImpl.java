@@ -6,10 +6,12 @@ import com.cy.store.mapper.CartMapper;
 import com.cy.store.mapper.ProductMapper;
 import com.cy.store.service.ICartService;
 import com.cy.store.service.ex.InsertException;
+import com.cy.store.vo.CartVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CartServiceImpl implements ICartService {
@@ -46,5 +48,10 @@ public class CartServiceImpl implements ICartService {
         if (rows != 1){
             throw new InsertException("fail to insert");
         }
+    }
+
+    @Override
+    public List<CartVO> getVOByUid(Integer uid) {
+        return cartMapper.findVOByUid(uid);
     }
 }

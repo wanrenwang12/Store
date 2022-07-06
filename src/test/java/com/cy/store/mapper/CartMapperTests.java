@@ -1,6 +1,7 @@
 package com.cy.store.mapper;
 
 import com.cy.store.entity.Cart;
+import com.cy.store.vo.CartVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +36,11 @@ public class CartMapperTests {
     @Test
     public void findByUidAndPid(){
         System.err.println(cartMapper.findByUidAndPid(8, 10000011));
+    }
+
+    @Test
+    public void findVOByUid(){
+        System.err.println(cartMapper.findVOByUid(8));
     }
 
 }

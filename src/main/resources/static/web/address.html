@@ -283,14 +283,12 @@
 			}
 
 			function setDefault(aid){
-				console.log("dianl");
 				$.ajax({
 					url:"/address/" + aid + "/set_default",
 					type: "POST",
 					dataType: "JSON",
 					success: function(json){
 						if (json.state == 200){
-							console.log("dianl");
 							location.href = "address.html";
 						} else{
 							alert("fail to set Default");
