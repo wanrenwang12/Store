@@ -54,4 +54,17 @@
         ORDER BY
             t_cart.created_time DESC
     </select>
+
+    <select id="findByCid" resultMap="CartEntityMap">
+        SELECT
+            *
+        FROM
+            t_cart
+        WHERE
+            cid = #{cid}
+    </select>
+
+    <delete id="deleteCart">
+        DELETE FROM t_cart WHERE cid = #{cid}
+    </delete>
 </mapper>

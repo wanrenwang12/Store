@@ -39,6 +39,9 @@ public class BaseController {
         }else if (e instanceof ProductNotFoundException){
             result.setState(4006);
             result.setMessage("Product not exist");
+        }else if (e instanceof CartNotFoundException){
+            result.setState(4007);
+            result.setMessage("Cart not exist");
         }else if (e instanceof InsertException){
             result.setState(5000);
             result.setMessage("fail to register");

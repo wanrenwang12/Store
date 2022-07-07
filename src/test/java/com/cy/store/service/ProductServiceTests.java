@@ -1,4 +1,4 @@
-package com.cy.store.mapper.service;
+package com.cy.store.service;
 
 import com.cy.store.entity.Product;
 import com.cy.store.service.IProductService;

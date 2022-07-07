@@ -9,4 +9,8 @@ public interface ICartService {
     void addToCart(Integer uid, Integer pid, Integer amount, String username);
 
     List<CartVO> getVOByUid(Integer uid);
+
+    Integer addNum(Integer cid, Integer uid, String username);
+
+    Integer reduceNum(Integer cid, Integer uid, String username);
 }

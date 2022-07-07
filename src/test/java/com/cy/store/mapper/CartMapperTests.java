@@ -43,4 +43,14 @@ public class CartMapperTests {
         System.err.println(cartMapper.findVOByUid(8));
     }
 
+    @Test
+    public void findByCid(){
+        System.err.println(cartMapper.findByCid(1));
+    }
+
+    @Test
+    public void delByCid(){
+        System.err.println(cartMapper.deleteCart(1));
+    }
+
 }

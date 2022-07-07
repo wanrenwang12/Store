@@ -289,7 +289,7 @@
 									+ '<td>#{title}#{msg}</td>'
 									+ '<td>¥<span id="price-#{cid}">#{realPrice}</span></td>'
 									+ '<td>'
-									+ 	'<input type="button" value="-" class="num-btn" onclick="reduceNum(1)" />'
+									+ 	'<input type="button" value="-" class="num-btn" onclick="reduceNum(#{cid})" />'
 									+ 	'<input id="num-#{cid}" type="text" size="2" readonly="readonly" class="num-text" value="#{num}">'
 									+ 	'<input class="num-btn" type="button" value="+" onclick="addNum(#{cid})" />'
 									+ '</td>'
@@ -312,6 +312,53 @@
 							}
 							$("#cart-list").append(tr);
 						}
+					}
+				});
+			}
+
+			function addNum(cid) {
+				$.ajax({
+					url: "/cart/" + cid + "/num/add",
+					type: "POST",
+					dataType: "JSON",
+					success: function(json) {
+						if (json.state == 200) {
+							// showCartList();
+							$("#num-" + cid).val(json.data);
+							let price = $("#price-" + cid).html();
+							let totalPrice = price * json.data;
+							$("#total-price-" + cid).html(totalPrice);
+						} else {
+							alert("fail to add！" + json.message);
+						}
+					},
+					error: function(xhr) {
+						alert("fail to login" + xhr.status);
+						location.href = "login.html";
+					}
+				});
+			}
+
+			function reduceNum(cid) {
+				$.ajax({
+					url: "/cart/" + cid + "/num/reduce",
+					type: "POST",
+					dataType: "JSON",
+					success: function(json) {
+						if (json.state == 200) {
+							// showCartList();
+							$("#num-" + cid).val(json.data);
+							let price = $("#price-" + cid).html();
+							let totalPrice = price * json.data;
+							$("#total-price-" + cid).html(totalPrice);
+							showCartList();
+						} else {
+							alert("fail to add！" + json.message);
+						}
+					},
+					error: function(xhr) {
+						alert("fail to login" + xhr.status);
+						location.href = "login.html";
 					}
 				});
 			}

@@ -4,6 +4,7 @@ import com.cy.store.service.ICartService;
 import com.cy.store.util.JsonResult;
 import com.cy.store.vo.CartVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,4 +31,17 @@ public class CartController extends BaseController{
         List<CartVO> data = cartService.getVOByUid(getuidFromSession(session));
         return new JsonResult<>(OK, data);
     }
+
+    @RequestMapping("{cid}/num/add")
+    public JsonResult<Integer> addNum(@PathVariable("cid") Integer cid, HttpSession session){
+        Integer data = cartService.addNum(cid, getuidFromSession(session), getUsernameFromSession(session));
+        return new JsonResult<>(OK, data);
+    }
+
+    @RequestMapping("{cid}/num/reduce")
+    public JsonResult<Integer> reduceNum(@PathVariable("cid") Integer cid, HttpSession session){
+        Integer data = cartService.reduceNum(cid, getuidFromSession(session), getUsernameFromSession(session));
+        return new JsonResult<>(OK, data);
+    }
+
 }

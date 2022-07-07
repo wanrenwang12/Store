@@ -1,4 +1,4 @@
-package com.cy.store.mapper.service;
+package com.cy.store.service;
 
 import com.cy.store.service.ICartService;
 import org.junit.Test;
@@ -18,4 +18,8 @@ public class CartServiceTests {
         cartService.addToCart(8, 10000008, 8, "zhangsan");
     }
 
+    @Test
+    public void addNum(){
+        cartService.addNum(1, 8, "zhangsan");
+    }
 }
