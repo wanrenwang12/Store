@@ -13,4 +13,6 @@ public interface IAddressService {
     void setDefault(Integer aid, Integer uid, String username);
 
     void deleteAddress(Integer aid, Integer uid, String username);
+
+    Address getByAid(Integer aid, Integer uid);
 }
