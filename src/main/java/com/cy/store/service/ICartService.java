@@ -15,4 +15,8 @@ public interface ICartService {
     Integer reduceNum(Integer cid, Integer uid, String username);
 
     List<CartVO> getVOByCid(Integer uid, Integer[] cids);
+
+    Boolean deleteFromCart(Integer[] cids);
+
+    Integer deleteByCid(Integer uid, Integer cid);
 }

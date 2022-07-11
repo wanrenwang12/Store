@@ -113,4 +113,26 @@ public class CartServiceImpl implements ICartService {
         }
         return list;
     }
+
+    @Override
+    public Boolean deleteFromCart(Integer[] cids) {
+        Integer len = cids.length;
+        Integer result = cartMapper.deleteCartByCids(cids);
+        return result == len;
+    }
+
+    @Override
+    public Integer deleteByCid(Integer uid, Integer cid) {
+        Cart result = cartMapper.findByCid(cid);
+        if (!result.getUid().equals(uid)){
+            throw new AccessDeniedException("Denied");
+        }
+        Integer len = cartMapper.deleteCart(cid);
+        if (len!=1){
+            throw new UpdateException("fail tp update");
+        }
+        return len;
+    }
+
+
 }

@@ -24,6 +24,12 @@ public class ProductController extends BaseController {
         return new JsonResult<List<Product>>(OK, data);
     }
 
+    @RequestMapping("recent_list")
+    public JsonResult<List<Product>> getRecentList() {
+        List<Product> data = productService.findRecentList();
+        return new JsonResult<>(OK, data);
+    }
+
     @GetMapping("{id}/details")
     public JsonResult<Product> getById(@PathVariable("id") Integer id) {
         // 调用业务对象执行获取数据

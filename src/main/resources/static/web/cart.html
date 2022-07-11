@@ -291,7 +291,7 @@
 									+ '</td>'
 									+ '<td>¥<span id="total-price-#{cid}">#{totalPrice}</span></td>'
 									+ '<td>'
-									+ 	'<input type="button" onclick="delCartItem(this)" class="cart-del btn btn-default btn-xs" value="删除" />'
+									+ 	'<input type="button" onclick="delCartItem(#{cid})" class="cart-del btn btn-default btn-xs" value="删除" />'
 									+ '</td>'
 									+ '</tr>';
 							tr = tr.replace(/#{cid}/g, list[i].cid);
@@ -360,15 +360,25 @@
 					}
 				});
 			}
-			/*
-			$(function() {
-				//返回链接
-				$(".link-account").click(function() {
-					location.href = "orderConfirm.html";
-				})
-			})
 
-			 */
+			function delCartItem(cid){
+				$.ajax({
+					url: "/cart/" + cid + "/delete",
+					type: "POST",
+					dataType: "JSON",
+					success: function(json) {
+						if (json.state == 200) {
+							showCartList();
+						} else {
+							alert("fail to delete！" + json.message);
+						}
+					},
+					error: function(xhr) {
+						alert("fail to login" + xhr.status);
+						location.href = "login.html";
+					}
+				});
+			}
 		</script>
 	</body>
 

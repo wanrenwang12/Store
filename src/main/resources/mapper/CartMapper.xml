@@ -68,6 +68,14 @@
         DELETE FROM t_cart WHERE cid = #{cid}
     </delete>
 
+    <delete id="deleteCartByCids">
+        DELETE FROM t_cart WHERE cid IN(
+            <foreach collection="array" item = "cid" separator=",">
+                #{cid}
+            </foreach>
+            )
+    </delete>
+
     <select id="findVOByCid" resultType="com.cy.store.vo.CartVO">
         SELECT
             cid,

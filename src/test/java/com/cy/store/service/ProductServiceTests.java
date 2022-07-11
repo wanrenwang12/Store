@@ -22,4 +22,10 @@ public class ProductServiceTests {
         List<Product> list = productService.findHotList();
         System.err.println(list);
     }
+
+    @Test
+    public void findRecent(){
+        List<Product> list = productService.findRecentList();
+        System.err.println(list);
+    }
 }

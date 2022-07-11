@@ -151,27 +151,7 @@
 						<div class="panel-heading">
 							<p class="panel-title">新到好货</p>
 						</div>
-						<div class="panel-body panel-item">
-							<div class="col-md-12">
-								<div class="col-md-7 text-row-2"><a href="product.html">齐心（COMIX）C5902 A5优品商务笔记本子记事本日记本122张</a></div>
-								<div class="col-md-2">¥18</div>
-								<div class="col-md-3"><img src="../images/portal/02COMIXC5902A5122blue/collect.png" class="img-responsive" /></div>
-							</div>
-							<div class="col-md-12">
-								<div class="col-md-7  text-row-2"><a href="product.html">得力（deli）1548A商务办公桌面计算器 太阳能双电源</a></div>
-								<div class="col-md-2">¥50</div>
-								<div class="col-md-3"><img src="../images/portal/002calculator1548A/collect.png" class="img-responsive" /></div>
-							</div>
-							<div class="col-md-12">
-								<div class="col-md-7 text-row-2"><a href="product.html">戴尔(DELL)XPS13-9360-R1609 13.3</a></div>
-								<div class="col-md-2">¥6299</div>
-								<div class="col-md-3"><img src="../images/portal/12(DELL)XPS13gold/collect.png" class="img-responsive" /></div>
-							</div>
-							<div class="col-md-12">
-								<div class="col-md-7 text-row-2"><a href="product.html">联想（Lenovo）IdeaPad310高配版</a></div>
-								<div class="col-md-2">¥5298</div>
-								<div class="col-md-3"><img src="../images/portal/13LenovoIdeaPad310_black/collect.png" class="img-responsive" /></div>
-							</div>
+						<div id = "recent_list" class="panel-body panel-item">
 						</div>
 					</div>
 				</div>
@@ -259,20 +239,14 @@
 						<img src="../images/index/ios.png" class="lf">
 						<img src="../images/index/android.png" alt="" class="lf" />
 					</div>
-					<div class="col-md-6">
-						<img src="../images/index/erweima.png">
-					</div>
 				</div>
-			</div>
-			<!-- 页面底部-备案号 #footer -->
-			<div class="col-md-12 text-center bottom">
-				Copyright © 2022 dnsc.cn All Rights Reserved 京ICP备08963888号-45 <a target="_blank" href="http://www.dnsc.cn/">圆心科技集团有限公司</a> 版权所有
 			</div>
 		</footer>
 		<!--页脚结束-->
 		<script type="text/javascript">
 			$(document).ready(function() {
 				showHotList();
+				showRecentList();
 			});
 
 			function showHotList() {
@@ -283,7 +257,6 @@
 					dataType: "JSON",
 					success: function(json) {
 						let list = json.data;
-						console.log("count=" + list.length);
 						for (let i = 0; i < list.length; i++) {
 							console.log(list[i].title);
 							let html = '<div class="col-md-12">'
@@ -298,6 +271,32 @@
 							html = html.replace(/#{image}/g, list[i].image);
 
 							$("#hot-list").append(html);
+						}
+					}
+				});
+			}
+
+			function showRecentList() {
+				$("#recent_list").empty();
+				$.ajax({
+					url: "/products/recent_list",
+					type: "GET",
+					dataType: "JSON",
+					success: function(json) {
+						let list = json.data;
+						for (let i = 0; i < list.length; i++) {
+							let html = '<div class="col-md-12">'
+									+ '<div class="col-md-7 text-row-2"><a href="product.html?id=#{id}">#{title}</a></div>'
+									+ '<div class="col-md-2">￥#{price}</div>'
+									+ '<div class="col-md-3"><img src="..#{image}collect.png" class="img-responsive" /></div>'
+									+ '</div>';
+
+							html = html.replace(/#{id}/g, list[i].id);
+							html = html.replace(/#{title}/g, list[i].title);
+							html = html.replace(/#{price}/g, list[i].price);
+							html = html.replace(/#{image}/g, list[i].image);
+
+							$("#recent_list").append(html);
 						}
 					}
 				});

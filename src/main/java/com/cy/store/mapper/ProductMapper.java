@@ -14,4 +14,6 @@ public interface ProductMapper {
 
     Product findById (Integer id);
 
+    List<Product> findRecentList();
+
 }

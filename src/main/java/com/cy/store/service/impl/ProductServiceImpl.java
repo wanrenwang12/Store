@@ -47,5 +47,18 @@ public class ProductServiceImpl implements IProductService {
         return product;
     }
 
+    @Override
+    public List<Product> findRecentList() {
+        List<Product> list = productMapper.findRecentList();
+        for (Product product : list) {
+            product.setPriority(null);
+            product.setCreatedUser(null);
+            product.setCreatedTime(null);
+            product.setModifiedUser(null);
+            product.setModifiedTime(null);
+        }
+        return list;
+    }
+
 
 }

@@ -8,4 +8,6 @@ public interface IProductService {
     List<Product> findHotList();
 
     Product findById(Integer id);
+
+    List<Product> findRecentList();
 }

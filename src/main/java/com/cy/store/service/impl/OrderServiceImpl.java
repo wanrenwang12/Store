@@ -86,6 +86,8 @@ public class OrderServiceImpl implements IOrderService {
             }
         }
 
+        //delete from cart
+        cartService.deleteFromCart(cids);
         // 返回
         return order;
 
