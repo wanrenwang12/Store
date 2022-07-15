@@ -40,5 +40,10 @@ public class OrderMapperTests {
         orderMapper.insertOrderItem(orderItem);
     }
 
+    @Test
+    public void selectAllByUid(){
+        List<Order> list = orderMapper.selectByUid(8);
+        System.err.println(list.get(1).getOrderTime());
+    }
 
 }

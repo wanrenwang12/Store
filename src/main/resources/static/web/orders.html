@@ -129,10 +129,11 @@
 			</div>
 			<!--左侧导航结束-->
 			<div class="col-md-10">
-				<div class="panel panel-default">
+				<div id = "order-list" class="panel panel-default">
 					<div class="panel-heading">
 						<p class="panel-title">
-							订单号：1101000001，下单时间：2018-12-1 17:50:30 ，收货人：八戒
+							<!---订单号：1101000001，下单时间：2018-12-1 17:50:30 ，收货人：八戒-->
+							<td>联想(Lenovo)小新Air13 Pro 13.3英寸14.8mm超轻薄笔记本电脑</td>
 						</p>
 					</div>
 					<div class="panel-body">
@@ -193,47 +194,6 @@
 						</table>
 						<div>
 							<span class="pull-right">订单总金额：¥20689</span>
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<p class="panel-title">
-							订单号：1101000301，下单时间：2018-12-2 20:32:17 ， 收货人：八戒
-						</p>
-					</div>
-					<div class="panel-body">
-						<table class="orders-table" width="100%">
-							<thead>
-								<tr>
-									<th width="15%"></th>
-									<th width="30%">商品</th>
-									<th width="8%">单价</th>
-									<th width="8%">数量</th>
-									<th width="9%">小计</th>
-									<th width="10%">售后</th>
-									<th width="10%">状态</th>
-									<th width="10%">操作</th>
-								</tr>
-							</thead>
-							<tbody class="orders-body">
-								<tr>
-									<td><img src="../images/portal/12DELLXPS13-silvery/collect.png" class="img-responsive" /></td>
-									<td>联想(Lenovo)小新Air13 Pro 13.3英寸14.8mm超轻薄笔记本电脑</td>
-									<td>¥<span>5298</span></td>
-									<td>1件</td>
-									<td>¥<span>5298</span></td>
-									<td><a href="#">申请售后</a></td>
-									<td>
-										<div>已发货</div>
-										<div><a href="orderInfo.html">订单详情</a></div>
-									</td>
-									<td><a href="#" class="btn btn-default btn-xs">确认收货</a></td>
-								</tr>
-							</tbody>
-						</table>
-						<div>
-							<span class="pull-right">订单总金额：¥5298</span>
 						</div>
 					</div>
 				</div>
@@ -321,6 +281,106 @@
 
 		</footer>
 		<!--页脚结束-->
+		<script type="text/javascript">
+			$(document).ready(function(){
+				showOrderList();
+			})
+
+			function showOrderList() {
+				$("#order-list").empty();
+				$.ajax({
+					url: "/orders",
+					type: "GET",
+					dataType: "JSON",
+					async:false,
+					success: function(json) {
+						let list = json.data;
+						for (let i = 0; i < list.length; i++) {
+							let start = '<div class="panel-heading">\n' +
+									'<p class="panel-title">\n' +
+									'<td>Order ID:<span>#{oid}&nbsp;&nbsp;&nbsp;&nbsp;</span>\n' +
+									'Order Date:<span>#{orderTime}&nbsp;&nbsp;&nbsp;&nbsp;</span>\n' +
+									'Recepient:<span>#{recvName}</span>\n' +
+									'</td>' +
+									'</p>\n' +
+									'</div>\n' +
+									'<div class="panel-body">\n' +
+									'<style>\n' +
+									'td{\n' +
+									'text-align:center;\n' +
+									'vertical-align:middle;\n' +
+									'}\n' +
+									'</style>' +
+									'<table class="orders-table" width="100%">\n' +
+									'<thead>\n' +
+									'<tr>\n' +
+									'<th width="15%"></th>\n' +
+									'<th width="30%">商品</th>\n' +
+									'<th width="8%">单价</th>\n' +
+									'<th width="8%">数量</th>\n' +
+									'<th width="9%">小计</th>\n' +
+									'<th width="10%">售后</th>\n' +
+									'<th width="10%">状态</th>\n' +
+									'<th width="10%">操作</th>\n' +
+									'</tr>\n' +
+									'</thead>\n' +
+									'<tbody class="orders-body">';
+
+							start = start.replace(/#{oid}/g, list[i].oid);
+							let orderTime = list[i].orderTime.substr(0, 10);
+							start = start.replace(/#{orderTime}/g, orderTime);
+							start = start.replace(/#{recvName}/g, list[i].recvName);
+							$("#order-list").append(start);
+
+							addOrderItem(list[i].oid);
+
+						}
+					}
+				});
+			}
+
+			function addOrderItem(oid) {
+				$.ajax({
+					url: "/orders/" + oid + "/getAllItem",
+					type: "GET",
+					dataType: "JSON",
+					async:false,
+					success: function (json) {
+						let list = json.data;
+						let res = '';
+						for (let i = 0; i < list.length; i++) {
+							let mid = '<tr>\n' +
+									'<td  width="15%"><img src="..#{image}collect.png" class="img-responsive" /></td>\n' +
+									'<td width="30%">#{title}</td>\n' +
+									'<td width="8%">$<span>#{price}</span></td>\n' +
+									'<td width="8%"><span>#{num}件</span></td>\n' +
+									'<td width="9%">$<span>#{totalPrice}</span></td>\n' +
+									'<td width="10%"><a href="#">申请售后</a></td>\n' +
+									'<td width="10%">\n' +
+									'<div>已发货</div>\n' +
+									'<div><a href="orderInfo.html">订单详情</a></div>\n' +
+									'</td>\n' +
+									'<td width="10%"><a href="#" class="btn btn-default btn-xs">确认收货</a></td>\n' +
+									'</tr>';
+
+							mid = mid.replace(/#{title}/g, list[i].title);
+							mid = mid.replace(/#{image}/g, list[i].image);
+							mid = mid.replace(/#{price}/g, list[i].price);
+							mid = mid.replace(/#{num}/g, list[i].num);
+							mid = mid.replace(/#{totalPrice}/g, list[i].price * list[i].num);
+							res += mid;
+						}
+						$("#order-list").append(res);
+
+						let end = '</tbody>\n' +
+								'</table>\n' +
+								'<div>\n' +
+								'</div>'
+						$("#order-list").append(end);
+					}
+				});
+			}
+		</script>
 	</body>
 
 </html>

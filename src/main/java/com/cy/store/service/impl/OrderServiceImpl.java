@@ -8,6 +8,7 @@ import com.cy.store.service.IAddressService;
 import com.cy.store.service.ICartService;
 import com.cy.store.service.IOrderService;
 import com.cy.store.service.ex.InsertException;
+import com.cy.store.util.JsonResult;
 import com.cy.store.vo.CartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,5 +92,15 @@ public class OrderServiceImpl implements IOrderService {
         // 返回
         return order;
 
+    }
+
+    @Override
+    public List<Order> getAllOrders(Integer uid) {
+        return orderMapper.selectByUid(uid);
+    }
+
+    @Override
+    public List<OrderItem> getOrderItems(Integer oid) {
+        return orderMapper.selectItemByOid(oid);
     }
 }

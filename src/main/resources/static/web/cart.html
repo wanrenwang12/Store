@@ -102,7 +102,7 @@
 								<thead>
 									<tr>
 										<th width="8%">
-											<input type="checkbox" class="ckall" onclick="checkall(this)" />全选</th>
+											<input type="checkbox" class="ckall" onclick="setAll(this)" />全选</th>
 										<th width="110"></th>
 										<th width="29%">商品</th>
 										<th width="11%">单价</th>
@@ -166,10 +166,11 @@
 								</tbody>
 							</table>
 							<div class="total-bar">
-								<a href="javascript:selDelCart()" class="cart-del-sel btn btn-default btn-xs">删除所选商品</a>
+								<!--<a href="javascript:selDelCart()" class="cart-del-sel btn btn-default btn-xs">删除所选商品</a>-->
+								<a  onclick="delCartByChecked()" class="cart-del-sel btn btn-default btn-xs">删除所选商品</a>
 								<span class="pull-right">已选商品
-								<span id="selectCount">0</span>件 总价¥
-								<span id="selectTotal">0</span>元
+								<span id="selectCount">#{selectCount}</span>件 总价¥
+								<span id="selectTotal">#{selectTotal}</span>元
 								</span>
 							</div>
 							<div>
@@ -266,6 +267,8 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				showCartList();
+				$("#selectCount").html(0);
+				$("#selectTotal").html(0);
 			})
 
 			function showCartList() {
@@ -279,7 +282,7 @@
 						for (let i = 0; i < list.length; i++) {
 							let tr = '<tr>'
 									+ '<td>'
-									+ 	'<input name="cids" value="#{cid}" type="checkbox" class="ckitem" />'
+									+ 	'<input name="cids" value="#{cid}" type="checkbox" class="ckitem" onclick="ChechSum()"/>'
 									+ '</td>'
 									+ '<td><img src="..#{image}collect.png" class="img-responsive" /></td>'
 									+ '<td>#{title}#{msg}</td>'
@@ -378,6 +381,43 @@
 						location.href = "login.html";
 					}
 				});
+			}
+
+			function ChechSum(){
+				let sum = 0;
+				let num = 0;
+
+				var itemList = document.getElementsByName("cids");
+				for (let i = 0; i < itemList.length; i++) {
+					if(itemList[i].checked){
+						var cid = itemList[i].value;
+						sum += parseInt($("#total-price-" + cid).html());
+						num += parseInt($("#num-" + cid).val());
+					}
+				}
+				$("#selectCount").html(num);
+				$("#selectTotal").html(sum);
+			}
+
+			function setAll(obj){
+				let status = obj.checked;
+				let itemList = document.getElementsByName("cids");
+				for (let i = 0; i < itemList.length; i++) {
+					itemList[i].checked = status;
+				}
+				ChechSum();
+			}
+
+			function delCartByChecked(){
+				let itemList = document.getElementsByName("cids");
+				for (let i = 0; i < itemList.length; i++) {
+					if (itemList[i].checked){
+						delCartItem(itemList[i].value);
+					}
+				}
+				showCartList();
+				$("#selectCount").html(0);
+				$("#selectTotal").html(0);
 			}
 		</script>
 	</body>
