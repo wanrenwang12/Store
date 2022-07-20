@@ -37,4 +37,17 @@ public class ProductController extends BaseController {
         // 返回成功和数据
         return new JsonResult<Product>(OK, data);
     }
+
+    @GetMapping("/pages")
+    public JsonResult<List<Product>> getByCategoryId(Integer categoryId, Integer pageNum){
+        List<Product> data = productService.findByCategoryId(categoryId, pageNum, 4);
+        return new JsonResult<>(OK, data);
+    }
+
+    @GetMapping("{categoryId}/count")
+    public JsonResult<Integer> countByCategoryId(@PathVariable("categoryId") Integer categoryId){
+        Integer data = productService.countByCategoryId(categoryId);
+        return new JsonResult<>(OK, data);
+    }
+
 }

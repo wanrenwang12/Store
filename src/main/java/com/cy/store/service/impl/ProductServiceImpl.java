@@ -4,6 +4,7 @@ import com.cy.store.entity.Product;
 import com.cy.store.mapper.ProductMapper;
 import com.cy.store.service.IProductService;
 import com.cy.store.service.ex.ProductNotFoundException;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -58,6 +59,21 @@ public class ProductServiceImpl implements IProductService {
             product.setModifiedTime(null);
         }
         return list;
+    }
+
+    @Override
+    public List<Product> findByCategoryId(Integer categoryId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> list = productMapper.selectByCategoryID(categoryId);
+        return list;
+    }
+
+    @Override
+    public Integer countByCategoryId(Integer categoryId) {
+        Integer a = productMapper.countByCategoryId(categoryId);
+        Integer b = 4;
+        Integer result = (int)Math.ceil((double) a/b);
+        return result;
     }
 
 

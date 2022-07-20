@@ -10,4 +10,8 @@ public interface IProductService {
     Product findById(Integer id);
 
     List<Product> findRecentList();
+
+    List<Product> findByCategoryId(Integer categoryId, Integer pageNum, Integer pageSize);
+
+    Integer countByCategoryId(Integer categoryId);
 }

@@ -16,4 +16,7 @@ public interface ProductMapper {
 
     List<Product> findRecentList();
 
+    List<Product> selectByCategoryID(Integer categoryId);
+
+    Integer countByCategoryId(Integer categoryId);
 }

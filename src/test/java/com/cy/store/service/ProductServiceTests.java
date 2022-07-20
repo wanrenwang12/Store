@@ -28,4 +28,16 @@ public class ProductServiceTests {
         List<Product> list = productService.findRecentList();
         System.err.println(list);
     }
+
+    @Test
+    public void findByCategoryID(){
+        List<Product> list = productService.findByCategoryId(238, 2, 2);
+        System.err.println(list);
+    }
+
+    @Test
+    public void count(){
+        Integer res = productService.countByCategoryId(241);
+        System.err.println(res);
+    }
 }
